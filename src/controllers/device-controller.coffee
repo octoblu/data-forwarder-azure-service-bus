@@ -21,7 +21,6 @@ class DeviceController
     meshbluHttp.register deviceConfig, (error, device) =>
       return res.sendError error if error?
       {uuid, token} = device
-      console.log JSON.stringify device, null, 2
       meshbluHttp = new MeshbluHttp  _.extend {}, meshbluAuth, {uuid, token}
       subscription = {subscriberUuid: uuid, emitterUuid: uuid, type: 'message.received'}
 
