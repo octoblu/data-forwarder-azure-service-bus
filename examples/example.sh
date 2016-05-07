@@ -1,9 +1,9 @@
 #!/bin/sh
 
-MESHBLU_SERVER="meshblu.octoblu.com"
-MESHBLU_PORT="443"
+MESHBLU_SERVER="meshblu.octoblu.dev"
+MESHBLU_PORT="80"
 MESHBLU_URL="$MESHBLU_SERVER:$MESHBLU_PORT"
-SERVICE_URL="data-forwarder-azure-service-bus.octoblu.com"
+SERVICE_URL="data-forwarder-azure-service-bus.octoblu.dev"
 CREATE_DEVICE_URL="$SERVICE_URL/messages"
 
 mkdir ./tmp
@@ -24,7 +24,7 @@ curl \
 --silent \
 --user $OWNER_DEVICE_UUID:$OWNER_DEVICE_TOKEN \
 -H 'content-type: application/json' \
--d '{"options": "hi"}' \
+-d '{"connectionString": "whatever", "queueName": "yo"}' \
 -X POST "$SERVICE_URL/devices" | jq '.' > ./tmp/data-forwarder-config.json
 
 FORWARDER_DEVICE_UUID=$(cat ./tmp/data-forwarder-config.json | jq -r '.uuid')

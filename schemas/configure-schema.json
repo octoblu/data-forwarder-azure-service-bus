@@ -2,7 +2,10 @@
   "title": "Configure",
   "type": "object",
   "properties": {
-    "greeting": {
+    "connectionString": {
+      "type": "string"
+    },
+    "queueName": {
       "type": "string"
     }
   }

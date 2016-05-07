@@ -1,11 +1,9 @@
-request = require 'request'
+azure = require 'azure'
+debug = require('debug')('data-forwarder-azure-service-bus')
 class AzureServiceBus
-  constructor: ->
-    console.warn 'implement AzureServiceBus.onMessage if you want this service to actually do something.'
-
   onMessage: ({message, device}, callback) =>
-    console.warn 'implement AzureServiceBus.onMessage if you want this service to actually do something.'
-    console.log JSON.stringify {message,device}, null, 2
-    request.post 'http://requestb.in/174km9n1', json: message, callback
+    {connectionString, queueName} = device
+    serviceBusService = azure.createServiceBusService connectionString
+    serviceBusService.sendQueueMessage queueName, body: JSON.stringify(message), callback
 
 module.exports = AzureServiceBus
