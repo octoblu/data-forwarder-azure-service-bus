@@ -19,7 +19,7 @@ module.exports = ({authorizedUuid, deviceType, imageUrl, serviceUrl, name, confi
 
       schemas:
         configure:
-          url: "#{serviceUrl}/schemas/configure.json"
+          url: "#{serviceUrl}/schemas/v1/configure.json"
 
       whitelists:
         broadcast:
