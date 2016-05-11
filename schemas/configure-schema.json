@@ -2,11 +2,15 @@
   "title": "Configure",
   "type": "object",
   "properties": {
+    "name": {
+      "type": "string"
+    },
     "connectionString": {
       "type": "string"
     },
     "queueName": {
       "type": "string"
     }
-  }
+  },
+  "required": ["connectionString", "queueName"]
 }
