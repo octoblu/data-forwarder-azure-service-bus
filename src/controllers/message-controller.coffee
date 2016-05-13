@@ -10,8 +10,10 @@ class MessageController
     meshblu = new MeshbluHttp req.meshbluAuth
     @getDeviceConfig meshblu, (error, device) =>
       return res.sendError(error) if error?
+      {forwarderConfig} = device
+      return res.sendStatus 422 unless forwarderConfig?
       azureServiceBus = new AzureServiceBus
-      azureServiceBus.onMessage {message, device}, (error) =>
+      azureServiceBus.onMessage {message, forwarderConfig}, (error) =>
         return res.sendError error if error?
         res.sendStatus 201
 

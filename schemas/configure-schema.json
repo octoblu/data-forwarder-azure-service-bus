@@ -5,12 +5,20 @@
     "name": {
       "type": "string"
     },
-    "connectionString": {
-      "type": "string"
-    },
-    "queueName": {
-      "type": "string"
+    "forwarderConfig": {
+      "type": "object",
+      "properties": {
+        "connectionString": {
+          "type": "string"
+        },
+        "queueName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "connectionString",
+        "queueName"
+      ]
     }
-  },
-  "required": ["connectionString", "queueName"]
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "data-forwarder-azure-service-bus",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Put some description here",
   "keywords": [],
   "homepage": "https://github.com/octoblu/azure-service-bus",

@@ -15,14 +15,17 @@ class DeviceController
     {meshbluAuth}   = req
     authorizedUuid  = meshbluAuth.uuid
 
-    deviceConfig   = generateConfig {@deviceType, @imageUrl, @serviceUrl, authorizedUuid, config}
-    meshbluHttp    = new MeshbluHttp meshbluAuth
+    deviceConfig    = generateConfig {@deviceType, @imageUrl, @serviceUrl, authorizedUuid, config}
+    meshbluHttp     = new MeshbluHttp meshbluAuth
 
     meshbluHttp.register deviceConfig, (error, device) =>
       return res.sendError error if error?
-      {uuid, token} = device
-      meshbluHttp = new MeshbluHttp  _.extend {}, meshbluAuth, {uuid, token}
+      {uuid} = device
       subscription = {subscriberUuid: uuid, emitterUuid: uuid, type: 'message.received'}
+
+      meshbluAuth.uuid  = device.uuid
+      meshbluAuth.token = device.token
+      meshbluHttp       = new MeshbluHttp meshbluAuth
 
       meshbluHttp.createSubscription subscription, (error) =>
         return res.sendError error if error?
