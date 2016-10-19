@@ -1,15 +1,24 @@
 language: node_js
 node_js:
-- '5'
+  - '5'
 before_script:
-- npm install -g codeclimate-test-reporter
+  - npm install -g codeclimate-test-reporter
 after_script:
-- codeclimate-test-reporter < coverage/lcov.info
+  - codeclimate-test-reporter < coverage/lcov.info
 deploy:
   provider: npm
   email: serveradmin@octoblu.com
   api_key:
-    secure: x+0lWwSTyzILoaIZiV3Em7zCEaVNAJln8qHLB0I9OQBGhEiIft027aIiFdYWLp93ZRuk4oOgj3FmHYSLI1BV6hVTY/n4p1Klo+f4YQbgX/j4tn2tlMSM1gRVDsh018QwWbf6iRKdXXPUy7n+1E8fSE3xJYxjNXYgQPGZQGt8w/9OcHjTtiHqTqBANNjE453BlOo7RmY2WO3AFqSTQryQUG7LrFRbIJnlJs6yMnmXQsPtM2sNu/v8niMqT6cyYVUfXA7rQhG1JS/P2ogJyGC7UI8kfzBR4clRFjJ1k2xaLnv2yQJOp/09YqTxJg6nIkw5GudsoHLEP2XlxcRDXb4093OW3UWboGosh0n9axhm3fKt91OvkJj9fGfxDkPmdkPyf1YUa0U/xrJJ6I9FtP4SFv24bB0lbGtJd0keewpplnFffyvXuJKTk/DeADhia9D+dcZ5s4TdDoy1JfLF/iGSH6mCZ0NNhX6Z/clLTE6Ra0rdnkHXZip4QRkDGgHHxrsENvi7tDXnaUv4JpZiXNhdF5dzs2RnN0pJa8ECn+XjmTAnHC9qxbCtZVBlHK3PBpJjjY/1QK7GPymPEsMvBdpneSfUax88jO9vmFA+7wxHRgDlpSzUfBiZpOmZFfl4l63mdreHaQdFJRBGziPfdAXFwR9jRHk3w3G3WhOyhTzVwMs=
-  on:
+    secure: >-
+      x+0lWwSTyzILoaIZiV3Em7zCEaVNAJln8qHLB0I9OQBGhEiIft027aIiFdYWLp93ZRuk4oOgj3FmHYSLI1BV6hVTY/n4p1Klo+f4YQbgX/j4tn2tlMSM1gRVDsh018QwWbf6iRKdXXPUy7n+1E8fSE3xJYxjNXYgQPGZQGt8w/9OcHjTtiHqTqBANNjE453BlOo7RmY2WO3AFqSTQryQUG7LrFRbIJnlJs6yMnmXQsPtM2sNu/v8niMqT6cyYVUfXA7rQhG1JS/P2ogJyGC7UI8kfzBR4clRFjJ1k2xaLnv2yQJOp/09YqTxJg6nIkw5GudsoHLEP2XlxcRDXb4093OW3UWboGosh0n9axhm3fKt91OvkJj9fGfxDkPmdkPyf1YUa0U/xrJJ6I9FtP4SFv24bB0lbGtJd0keewpplnFffyvXuJKTk/DeADhia9D+dcZ5s4TdDoy1JfLF/iGSH6mCZ0NNhX6Z/clLTE6Ra0rdnkHXZip4QRkDGgHHxrsENvi7tDXnaUv4JpZiXNhdF5dzs2RnN0pJa8ECn+XjmTAnHC9qxbCtZVBlHK3PBpJjjY/1QK7GPymPEsMvBdpneSfUax88jO9vmFA+7wxHRgDlpSzUfBiZpOmZFfl4l63mdreHaQdFJRBGziPfdAXFwR9jRHk3w3G3WhOyhTzVwMs=
+  'on':
     tags: true
     branches: true
+notifications:
+  webhooks:
+    - 'https://beekeeper.octoblu.com/webhooks/travis:ci'
+after_success:
+  - npm run coverage
+  - 'npm run mocha:json'
+  - 'bash <(curl -s https://codecov.io/bash)'
+  - 'bash <(curl -s https://codecov.octoblu.com/bash)'
